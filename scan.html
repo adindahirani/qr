@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan Voucher Hotspot</title>
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* background: #f4f4f4; */
+            background: #c1beff;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .main {
+            color: #000000;
+            height: 100%;
+            border-radius: 1.5em;
+            padding: 10px;
+            /* margin-top: 10%;
+            margin-bottom: 5%; */
+            margin-left: auto;
+            margin-right: auto;
+            transition: 0.3s;
+            text-align: center;
+            min-height: 300px;
+            animation: fadein 1s;
+            -moz-animation: fadein 1s;
+            -webkit-animation: fadein 1s;
+            -o-animation: fadein 1s;
+            width: 100%;
+        }
+
+        .container {
+            background: linear-gradient(180deg, #ffffff42, #ffffff47, #f4e4ff7a, #ffffff38);
+            color: #000000;
+            max-width: 30rem;
+            height: 100%;
+            border-radius: 1.5em;
+            border: 1px solid #ffffff52;
+            padding: 10px;
+            margin: 1.5em auto;
+            transition: 0.3s;
+            text-align: center;
+            animation: fadein 1s;
+            -moz-animation: fadein 1s;
+            -webkit-animation: fadein 1s;
+            -o-animation: fadein 1s;
+            box-shadow: 0 15px 35px rgb(0 0 0 / 10%);
+            display: flex;
+            flex-wrap: wrap;
+            align-content: center;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #reader {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: 1em;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        div#qr-shaded-region {
+            border-color: rgb(0 0 0 / 25%) !important;
+        }
+
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 1em;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-switch {
+            background-color: #007bffb3;
+            color: white;
+        }
+
+        .btn-back {
+            background-color: #6c757d;
+            color: white;
+            margin-top: 1em;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        h2 {
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="main" class="main">
+        <h2>📷 Scan QR Voucher</h2>
+        <div class="container">
+
+            <div id="reader"></div>
+
+        </div>
+        <div class="controls">
+            <button class="btn-switch" onclick="switchCamera()">🔄 Ganti Kamera 🔄</button>
+        </div>
+        <button class="btn-back" onclick="goBack()">❮❮ Kembali</button>
+    </div>
+
+
+
+    <script>
+        let html5QrCode;
+        let currentFacingMode = "environment"; // Default kamera belakang
+
+        function startScanner() {
+            html5QrCode = new Html5Qrcode("reader");
+            const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+
+            html5QrCode.start(
+                { facingMode: currentFacingMode },
+                config,
+                onScanSuccess
+            ).catch(err => {
+                console.error("Gagal akses kamera: ", err);
+                alert("Mohon izinkan akses kamera untuk scan voucher.");
+            });
+        }
+
+        function onScanSuccess(decodedText, decodedResult) {
+            // Berhenti scan setelah dapet data
+            html5QrCode.stop().then(() => {
+                // Asumsi QR berisi link login MikroTik: http://mikrotik.ip/login?username=KODE
+                // Atau hanya berisi kode voucher saja
+                alert("Voucher Terdeteksi: " + decodedText);
+                window.location.href = decodedText;
+            });
+        }
+
+        function switchCamera() {
+            currentFacingMode = (currentFacingMode === "environment") ? "user" : "environment";
+            html5QrCode.stop().then(() => {
+                startScanner();
+            });
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+
+        // Langsung jalankan scanner saat halaman dibuka
+        window.onload = startScanner;
+    </script>
+</body>
+
+</html>
