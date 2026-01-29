@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scanner Voucher Hotspot</title>
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <style>
+        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; background: #f4f4f4; }
+        #reader { width: 90%; max-width: 400px; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); background: white; }
+        h2 { color: #333; margin-bottom: 20px; }
+        .footer { margin-top: 20px; font-size: 12px; color: #888; }
+    </style>
+</head>
+<body>
+
+    <h2>Scan Voucher Anda</h2>
+    <div id="reader"></div>
+    <p class="footer">Arahkan kamera ke kode QR voucher</p>
+
+    <script>
+        // Ambil data IP MikroTik dari parameter URL agar fleksibel
+        const urlParams = new URLSearchParams(window.location.search);
+        const dnsName = urlParams.get('dns') || '192.168.88.1';
+
+        function onScanSuccess(decodedText) {
+            // Hentikan scanner agar tidak bunyi terus
+            html5QrcodeScanner.clear();
+            
+            // Cek apakah decodedText adalah URL atau hanya kode
+            let loginUrl;
+            if (decodedText.startsWith('http')) {
+                // Jika QR sudah berupa link dari Mikhmon, langsung pakai
+                loginUrl = decodedText;
+            } else {
+                // Jika QR hanya berisi kode voucher, susun link loginnya
+                loginUrl = "http://" + dnsName + "/login?username=" + encodeURIComponent(decodedText);
+            }
+            
+            alert("Voucher Terdeteksi! Menghubungkan...");
+            window.location.href = loginUrl;
+        }
+
+        function onScanFailure(error) {
+            // Kita biarkan saja agar scanner terus mencari kode
+        }
+
+        let html5QrcodeScanner = new Html5QrcodeScanner(
+            "reader", { fps: 15, qrbox: {width: 250, height: 250} }, false);
+        html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+    </script>
+</body>
+</html>
