@@ -48,6 +48,26 @@
         let html5QrcodeScanner = new Html5QrcodeScanner(
             "reader", { fps: 15, qrbox: {width: 250, height: 250} }, false);
         html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+
+        function onScanSuccess(decodedText) {
+            html5QrcodeScanner.clear();
+            
+            // Ambil IP/DNS MikroTik dari URL, default ke 192.168.88.1 jika tidak ada
+            const urlParams = new URLSearchParams(window.location.search);
+            const dnsName = urlParams.get('dns') || '192.168.88.1';
+        
+            let loginUrl;
+            // Jika QR dari Mikhmon biasanya berbentuk link: http://ip/login?username=abc
+            if (decodedText.startsWith('http')) {
+                loginUrl = decodedText;
+            } else {
+                // Jika QR hanya teks kode voucher
+                loginUrl = "http://" + dnsName + "/login?username=" + encodeURIComponent(decodedText);
+            }
+            
+            alert("Voucher Terdeteksi: " + decodedText);
+            window.location.href = loginUrl;
+        }
     </script>
 </body>
 </html>
