@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>Scanner Voucher Hotspot</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- <link rel="stylesheet" href="style.css"> -->
     <script src="https://unpkg.com/html5-qrcode"></script>
     <style>
         /* Penyesuaian khusus untuk elemen library scanner */
@@ -15,143 +16,136 @@
             overflow: hidden;
             background: rgba(255, 255, 255, 0.1) !important;
         }
+
         #reader__scan_region {
-            background: white !important;
+            background: #ffffff82 !important;
             border-radius: 1em;
         }
-#reader__dashboard_section_csr button {
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.8) 0%, rgba(59, 130, 246, 0.8) 100%);
-    border: 1px solid #ffffff7d;
-    color: white;
-    border-radius: 0.8em;
-    padding: 8px 15px;
-    cursor: pointer;
-    margin: 10px auto;
-    font-weight: bold;
-}
+
+        #reader__dashboard_section_csr button {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.8) 0%, rgba(59, 130, 246, 0.8) 100%);
+            border: 1px solid #ffffff7d !important;
+            color: white;
+            border-radius: 0.8em;
+            padding: 8px 15px;
+            cursor: pointer;
+            margin: 10px auto;
+            font-weight: bold;
+        }
+
         .scanner-instruction {
             margin-top: 15px;
             color: #6d6d6d;
             font-size: 13px;
         }
+
         #reader video {
             border-radius: 1em;
         }
 
         body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    margin: 0;
-    background: #c1beff;
-}
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            margin: 0;
+            background: #c1beff;
+        }
+
         .main {
-    /* background: linear-gradient(180deg, #ffffff42, #ffffff99, #f4e4ff94, #ffffff61); */
-    color: #000000;
-    /* max-width: 300px; */
-    height: 100%;
-    border-radius: 1.5em;
-    /* border: 1px solid #ffffff52; */
-    padding: 10px;
-    margin-top: 10%;
-    margin-bottom: 5%;
-    margin-left: auto;
-    margin-right: auto;
-    transition: 0.3s;
-    text-align: center;
-    min-height: 300px;
-    animation: fadein 1s;
-    -moz-animation: fadein 1s;
-    -webkit-animation: fadein 1s;
-    -o-animation: fadein 1s;
-    /* box-shadow: 0 15px 35px rgb(0 0 0 / 21%); */
-}
+            /* background: linear-gradient(180deg, #ffffff42, #ffffff99, #f4e4ff94, #ffffff61); */
+            color: #000000;
+            /* max-width: 300px; */
+            height: 100%;
+            border-radius: 1.5em;
+            /* border: 1px solid #ffffff52; */
+            padding: 10px;
+            margin-top: 10%;
+            margin-bottom: 5%;
+            margin-left: auto;
+            margin-right: auto;
+            transition: 0.3s;
+            text-align: center;
+            min-height: 300px;
+            animation: fadein 1s;
+            -moz-animation: fadein 1s;
+            -webkit-animation: fadein 1s;
+            -o-animation: fadein 1s;
+            /* box-shadow: 0 15px 35px rgb(0 0 0 / 21%); */
+        }
 
-.container {
-    background: linear-gradient(180deg, #ffffff42, #ffffff65, #f4e4ff94, #ffffff61);
-    color: #000000;
-    max-width: 22rem;
-    height: 100%;
-    border-radius: 1.5em;
-    border: 1px solid #ffffff52;
-    padding: 10px;
-    margin: 1.5em auto;
-    transition: 0.3s;
-    text-align: center;
-    /* min-height: 300px; */
-    animation: fadein 1s;
-    -moz-animation: fadein 1s;
-    -webkit-animation: fadein 1s;
-    -o-animation: fadein 1s;
-    box-shadow: 0 15px 35px rgb(0 0 0 / 10%);
-}
+        .container {
+            background: linear-gradient(180deg, #ffffff42, #ffffff65, #f4e4ff94, #ffffff61);
+            color: #000000;
+            max-width: 22rem;
+            height: 100%;
+            border-radius: 1.5em;
+            border: 1px solid #ffffff52;
+            padding: 10px;
+            margin: 1.5em auto;
+            transition: 0.3s;
+            text-align: center;
+            /* min-height: 300px; */
+            animation: fadein 1s;
+            -moz-animation: fadein 1s;
+            -webkit-animation: fadein 1s;
+            -o-animation: fadein 1s;
+            box-shadow: 0 15px 35px rgb(0 0 0 / 10%);
+        }
 
-#reader {
-    width: 100%;
-    border: none !important;
-    border-radius: 1.2em;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.1) !important;
-}
+        #reader {
+            width: 100%;
+            border: none !important;
+            border-radius: 1.2em;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.1) !important;
+        }
 
-#reader__scan_region {
-    background: white !important;
-    border-radius: 1em;
-}
+        .scanner-instruction {
+            margin-top: 15px;
+            color: #6d6d6d;
+            font-size: 13px;
+        }
 
-#reader__dashboard_section_csr button {
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.8) 0%, rgba(59, 130, 246, 0.8) 100%);
-    border: 1px solid white;
-    color: white;
-    border-radius: 0.8em;
-    padding: 8px 15px;
-    cursor: pointer;
-    margin: 10px auto;
-    font-weight: bold;
-}
+        .button {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.8) 0%, rgba(59, 130, 246, 0.8) 100%);
+            border: 1px solid rgb(255 255 255 / 66%);
+            border-radius: 1em;
+            color: #fff;
+            font-weight: bold;
+            text-align: center;
+            vertical-align: middle;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 13px;
+            margin-top: 10px;
+            margin-bottom: 1em;
+            cursor: pointer;
+            width: 90%;
+            height: 50px;
+            box-shadow: 0 4px 15px #c1beff91;
+            animation: pulse-badge 2s infinite;
+        }
 
-.scanner-instruction {
-    margin-top: 15px;
-    color: #6d6d6d;
-    font-size: 13px;
-}
-.button {
-    /* background-color: #8a87f7; */
-    /* background-image: linear-gradient(90deg, #bcb8f7, #8a8fffd6, #b8b2ff); */
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.8) 0%, rgba(59, 130, 246, 0.8) 100%);
-    border: 1px solid rgb(255 255 255 / 66%);
-    border-radius: 1em;
-    color: #fff;
-    font-weight: bold;
-    text-align: center;
-    vertical-align: middle;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 13px;
-    margin-top: 10px;
-    margin-bottom: 0px;
-    cursor: pointer;
-    width: 90%;
-    height: 50px;
-    box-shadow: 0 4px 15px #c1beff91;
-    animation: pulse-badge 2s infinite;
-}
-
+        div#qr-shaded-region {
+            border-radius: 1em !important;
+        }
     </style>
 </head>
+
 <body>
 
     <div id="main" class="main">
 
         <div class="container">
             <h2 style="font-size: 18px; color: #8178ff; margin-bottom: 15px;">📷 Scan QR Voucher</h2>
-            
+
             <div id="reader"></div>
 
             <div class="scanner-instruction">
                 <p>Arahkan kamera ke kode QR voucher Anda untuk login otomatis.</p>
             </div>
 
-            <a href="login.html" class="button" style="text-decoration: none; line-height: 50px; margin-top: 20px;">
+            <a href="javascript:history.back()" class="button"
+                style="text-decoration: none; line-height: 50px; margin-top: 20px;">
                 🔙 Kembali ke Login
             </a>
         </div>
@@ -169,14 +163,14 @@
         function onScanSuccess(decodedText) {
             // Berhenti setelah sukses
             html5QrcodeScanner.clear();
-            
+
             let loginUrl;
             if (decodedText.startsWith('http')) {
                 loginUrl = decodedText;
             } else {
                 loginUrl = "http://" + dnsName + "/login?username=" + encodeURIComponent(decodedText);
             }
-            
+
             // Menggunakan tampilan notifikasi yang lebih manis (opsional)
             alert("Voucher Terdeteksi! Menghubungkan...");
             window.location.href = loginUrl;
@@ -187,15 +181,16 @@
         }
 
         let html5QrcodeScanner = new Html5QrcodeScanner(
-            "reader", 
-            { 
-                fps: 15, 
-                qrbox: {width: 250, height: 250},
-                aspectRatio: 1.0 
-            }, 
+            "reader",
+            {
+                fps: 15,
+                qrbox: { width: 250, height: 250 },
+                aspectRatio: 1.0
+            },
             false
         );
         html5QrcodeScanner.render(onScanSuccess, onScanFailure);
     </script>
 </body>
+
 </html>
